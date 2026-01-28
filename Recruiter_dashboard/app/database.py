@@ -1,10 +1,25 @@
+import os
 import sqlite3
+import pandas as pd
 
-DB_PATH = "data/recruiter_dashboard.db"
+# --------------------------------------------------
+# PATH SETUP (DEPLOYMENT SAFE)
+# --------------------------------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+DB_PATH = os.path.join(DATA_DIR, "applications.db")
 
+# --------------------------------------------------
+# CONNECTION
+# --------------------------------------------------
 def get_connection():
-    return sqlite3.connect(DB_PATH)
+    os.makedirs(DATA_DIR, exist_ok=True)  # ensure folder exists
+    conn = sqlite3.connect(DB_PATH, check_same_thread=False)
+    return conn
 
+# --------------------------------------------------
+# TABLE CREATION (RUN ONCE AT START)
+# --------------------------------------------------
 def create_tables():
     conn = get_connection()
     cur = conn.cursor()
@@ -25,11 +40,26 @@ def create_tables():
     conn.commit()
     conn.close()
 
-def load_to_db(df):
+# --------------------------------------------------
+# INSERT DATA
+# --------------------------------------------------
+def load_to_db(df: pd.DataFrame):
     conn = get_connection()
     df.to_sql("applications", conn, if_exists="append", index=False)
     conn.close()
 
+# --------------------------------------------------
+# READ DATA
+# --------------------------------------------------
+def load_data():
+    conn = get_connection()
+    df = pd.read_sql("SELECT * FROM applications", conn)
+    conn.close()
+    return df
+
+# --------------------------------------------------
+# COUNT RECORDS
+# --------------------------------------------------
 def count_records():
     conn = get_connection()
     cur = conn.cursor()
