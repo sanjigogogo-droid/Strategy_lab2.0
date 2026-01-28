@@ -1,0 +1,97 @@
+/* ===============================
+   COLOR VARIABLES
+================================ */
+:root {
+  --dark-blue: #4F7F8F;
+  --light-blue: #96D5EB;
+  --blue: #57A3BD;
+  --dark-sand: #DBCEC1;
+  --sand: #F7F6F5;
+
+  --blur: 50px;
+  --palette-height: 70vh;
+}
+
+/* ===============================
+   BASE PAGE
+================================ */
+body {
+  background-color: var(--sand);
+  overflow-x: hidden;
+  font-family: "Inter", sans-serif;
+}
+
+/* ===============================
+   BACKGROUND GRADIENT
+================================ */
+.background {
+  position: fixed;
+  top: calc(-1 * var(--blur));
+  bottom: calc(-1 * var(--blur));
+  left: calc(-1 * var(--blur));
+  right: calc(-1 * var(--blur));
+  z-index: -1;
+
+  background: linear-gradient(
+    to bottom,
+    var(--sand) 20%,
+    var(--dark-sand) 30%,
+    var(--light-blue) 40%,
+    var(--dark-blue) 50%,
+    var(--blue) 60%
+  );
+
+  filter: blur(var(--blur));
+}
+
+/* ===============================
+   STREAMLIT CONTAINER POLISH
+================================ */
+.block-container {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2rem;
+  border-radius: 16px;
+}
+
+/* ===============================
+   KPI CARDS
+================================ */
+[data-testid="metric-container"] {
+  background: white;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* ===============================
+   TABLE STYLING
+================================ */
+.stDataFrame {
+  background: white;
+  border-radius: 14px;
+  padding: 0.5rem;
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+button {
+  border-radius: 10px !important;
+  background-color: var(--dark-blue) !important;
+  color: white !important;
+}
+
+button:hover {
+  background-color: var(--blue) !important;
+}
+
+/* ===============================
+   SIDEBAR
+================================ */
+section[data-testid="stSidebar"] {
+  background: linear-gradient(
+    to bottom,
+    var(--light-blue),
+    var(--sand)
+  );
+}
