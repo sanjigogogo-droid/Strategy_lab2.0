@@ -21,7 +21,10 @@ def get_connection():
 # ==================================================
 
 def load_css():
-    with open("style/ui.css") as f:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    css_path = os.path.join(base_dir, "style", "ui.css")
+
+    with open(css_path) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 load_css()
